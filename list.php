@@ -1,4 +1,11 @@
 <!doctype html>
+<?php
+  include 'db_connection.php';
+  $conn = OpenCon();
+  //Do some database stuff
+  CloseCon($conn);
+?>
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->

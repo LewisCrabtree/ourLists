@@ -1,9 +1,13 @@
 <!doctype html>
 <?php
-  include 'db_connection.php';
-  $conn = OpenCon();
+  #include 'db_connection.php';
+  $listID = $_GET['id'];
+
+  #$conn = OpenCon();
+  
   //Do some database stuff
-  CloseCon($conn);
+  #CloseCon($conn);
+  
 ?>
 
 <html lang="en">

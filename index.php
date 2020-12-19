@@ -1,9 +1,6 @@
 <!doctype html>
 <?php
-  include 'db_connection.php';
-  $conn = OpenCon();
-  //Do some database stuff
-  CloseCon($conn);
+  $unique = substr(md5(microtime()), 0, -25);
 ?>
 
 <html lang="en">
@@ -20,6 +17,9 @@
   <body>
     <div>
       <h1>Create a list</h1>
+      <a href="newList.php?id=<?php echo $unique; ?>" class="btn btn-default btn-lg">
+      <i class="fa fa-sign-in"></i> Create a new list
+      </a>
     </div>
   </body>
 </html>

@@ -17,6 +17,9 @@
   <body>
     <div>
       <h1>Create a list</h1>
+      <a href="newList.php?id=<?php echo $unique; ?>" class="btn btn-default btn-lg">
+      <i class="fa fa-sign-in"></i> Create a new list
+      </a>
     </div>
   </body>
 </html>

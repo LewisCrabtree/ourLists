@@ -1,9 +1,6 @@
 <!doctype html>
 <?php
-  include 'db_connection.php';
-  $conn = OpenCon();
-  //Do some database stuff
-  CloseCon($conn);
+  $unique = substr(md5(microtime()), 0, -25);
 ?>
 
 <html lang="en">

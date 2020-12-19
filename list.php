@@ -6,7 +6,7 @@
 
   $listName = "temp list name";
   $listData = ['one', 'two', 'three'];
-  
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -70,11 +70,7 @@
   function makeListButtons() {
     
   }
-
   
-
-
-
   // Usage
   makeList();
   makeListButtons();

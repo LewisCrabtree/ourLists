@@ -1,15 +1,18 @@
-CREATE DATABASE ourListsDB;
-
-USE ourListsDB
-
 CREATE TABLE `tblLists` (
-  `listID` int PRIMARY KEY AUTO_INCREMENT,
-  `listHeader` varchar(20)
+  `ListID` varchar(7) PRIMARY KEY,
+  `ListName` varchar(20)
 );
 
 CREATE TABLE `tblItems` (
-  `listID` int,
-  `itemName` varchar(30)
+  `ItemID` int PRIMARY KEY AUTO_INCREMENT,
+  `ItemName` varchar(30)
 );
 
-ALTER TABLE `tblItems` ADD FOREIGN KEY (`listID`) REFERENCES `tblLists` (`listID`);
+CREATE TABLE `tblListItems` (
+  `ListID` varchar(7),
+  `ItemID` int
+);
+
+ALTER TABLE `tblListItems` ADD FOREIGN KEY (`ListID`) REFERENCES `tblLists` (`ListID`);
+
+ALTER TABLE `tblListItems` ADD FOREIGN KEY (`ItemID`) REFERENCES `tblItems` (`ItemID`);

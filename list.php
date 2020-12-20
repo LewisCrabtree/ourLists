@@ -1,11 +1,14 @@
-<!doctype html>
 <?php
   include 'db_connection.php';
-  $conn = OpenCon();
+  #$conn = OpenCon();
   //Do some database stuff
-  CloseCon($conn);
+  #CloseCon($conn);
+  $listID = $_GET['id'];
+  $listName = "temp list name";
+  $listData = ['one', 'two', 'three'];
+  
 ?>
-
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -15,7 +18,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Share a List</title>
   </head>
   <body>
     
@@ -28,21 +31,12 @@
         To display the list we need to return the listName and listData that's stored in the DB.
         The JS below will just display whatever the listName and listData values are.
         So we can use php with GET to grab the list_id value from the URL,  and then retrieve the name and data associated with that list_id.
-        
-         
       */
 
       // Establish the Name of the list
-      let listName = "Movie List",
+      let listName = <?php echo json_encode($listName); ?>,
       // Establish the array which acts as a data source for the list
-      listData = [
-          'MidSommar',
-          'Tenet',
-          'Inception',
-          'Primer',
-          'Arrival',
-          'Convergence'
-      ],
+      listData = <?php echo json_encode($listData); ?>,
       // Make a container element for the list
       listContainer = document.createElement('div'),
       // Make the header
@@ -76,11 +70,7 @@
   function makeListButtons() {
     
   }
-
   
-
-
-
   // Usage
   makeList();
   makeListButtons();

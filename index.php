@@ -1,9 +1,6 @@
 <!doctype html>
 <?php
-  include 'db_connection.php';
-  $conn = OpenCon();
-  //Do some database stuff
-  CloseCon($conn);
+  $unique = substr(md5(microtime()), 0, -25);
 ?>
 
 <html lang="en">
@@ -15,11 +12,14 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
 
-    <title>ourLists</title>
+    <title>Create a List</title>
   </head>
   <body>
     <div>
       <h1>Create a list</h1>
+      <a href="list.php?id=<?php echo $unique; ?>" class="btn btn-default btn-lg">
+      <i class="fa fa-sign-in"></i> Create a new list
+      </a>
     </div>
   </body>
 </html>

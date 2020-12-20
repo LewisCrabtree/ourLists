@@ -4,8 +4,18 @@
   //Do some database stuff
   #CloseCon($conn);
   $listID = $_GET['id'];
-  $listName = "temp list name";
+
+  $listName = "Movie List";
   $listData = ['one', 'two', 'three'];
+
+  if('POST' === $_SERVER['REQUEST_METHOD']){
+    if (!empty($_POST["newItem"])){
+      //item sent in post.  add it to list
+      array_push($listData, $_POST["newItem"]);
+    }
+  }
+
+
   
 ?>
 <!doctype html>
@@ -21,7 +31,29 @@
     <title>Share a List</title>
   </head>
   <body>
-    
+
+    <!-- List Name -->
+    <h1> <?php echo json_encode($listName); ?> </h1>
+
+    <!-- list items area -->
+    <div>
+      <ul>
+      <!-- Items from server will go here  -->
+      <div id="ItemList">
+
+      </div>
+
+      <!-- insert item area -->
+      <div id="InsertArea">
+        <li>
+          <form id="formAddItem" name="formAddItem" method="post" action="/list.php?id=1234567">
+            <input type="text" name="newItem" id="newItem" placeholder="New Item">
+            <button type="submit">Add Item</button>
+          </form>
+        </li>
+      </div>
+      </ul>
+    </div>
   </body>
 </html>
 
@@ -32,28 +64,14 @@
         The JS below will just display whatever the listName and listData values are.
         So we can use php with GET to grab the list_id value from the URL,  and then retrieve the name and data associated with that list_id.
       */
-
-      // Establish the Name of the list
-      let listName = <?php echo json_encode($listName); ?>,
       // Establish the array which acts as a data source for the list
-      listData = <?php echo json_encode($listData); ?>,
-      // Make a container element for the list
-      listContainer = document.createElement('div'),
-      // Make the header
-      headerElement = document.createElement('h1'),
-      // Make the list
-      listElement = document.createElement('ul'),
-      // Set up a loop that goes through the items in listItems one at a time
+      let listData = <?php echo json_encode($listData); ?>,
       numberOfListItems = listData.length,
       listItem,
       i;
 
-      // Add header to the page
-      document.getElementsByTagName('body')[0].appendChild(headerElement);
-      headerElement.innerHTML = listName;
       // Add list to the page
-      document.getElementsByTagName('body')[0].appendChild(listContainer);
-      listContainer.appendChild(listElement);
+      let listContainer = document.getElementById("ItemList");
 
       for (i = 0; i < numberOfListItems; ++i) {
           // create an item for each one
@@ -63,15 +81,16 @@
           listItem.innerHTML = listData[i];
 
           // Add listItem to the listElement
-          listElement.appendChild(listItem);
+          listContainer.appendChild(listItem);
       }
+
+      //Add insert item area
+      let insertArea = document.getElementById("InsertArea");
+
+
   }
 
-  function makeListButtons() {
-    
-  }
-  
   // Usage
   makeList();
-  makeListButtons();
+
 </script>

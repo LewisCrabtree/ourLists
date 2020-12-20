@@ -1,9 +1,17 @@
 <?php
   include 'db_connection.php';
-  #$conn = OpenCon();
-  //Do some database stuff
-  #CloseCon($conn);
+
+  //Get the list id from the URL
   $listID = $_GET['id'];
+
+  //connect to DB
+  $conn = OpenCon();
+  //Do some database stuff
+
+  //close db connection
+  CloseCon($conn);
+
+  //Temp data until feature to get data from db is complete
   $listName = "temp list name";
   $listData = ['one', 'two', 'three'];
   
@@ -33,9 +41,9 @@
         So we can use php with GET to grab the list_id value from the URL,  and then retrieve the name and data associated with that list_id.
       */
 
-      // Establish the Name of the list
+      // Establish the Name of the list.  Convert php listName to JSON object and send to the browser
       let listName = <?php echo json_encode($listName); ?>,
-      // Establish the array which acts as a data source for the list
+      // Establish the list data.  Convert php listData to JSON object and send to the browser
       listData = <?php echo json_encode($listData); ?>,
       // Make a container element for the list
       listContainer = document.createElement('div'),
@@ -66,12 +74,7 @@
           listElement.appendChild(listItem);
       }
   }
-
-  function makeListButtons() {
-    
-  }
   
   // Usage
   makeList();
-  makeListButtons();
 </script>

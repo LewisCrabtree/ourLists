@@ -10,9 +10,13 @@
 
   if('POST' === $_SERVER['REQUEST_METHOD']){
     if (!empty($_POST["newItem"])){
+      $newItem = $_POST["newItem"];
       //item sent in post.  add it to list
-      array_push($listData, $_POST["newItem"]);
+      array_push($listData, $newItem);
     }
+
+    //insert the item to DB
+    
   }
 
 

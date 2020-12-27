@@ -46,11 +46,10 @@
       <div id="ItemList">
 
       </div>
-
       <!-- insert item area -->
       <div id="InsertArea">
         <li>
-          <form id="formAddItem" name="formAddItem" method="post" action="/list.php?id=1234567">
+          <form id="formAddItem" name="formAddItem" method="post" action="/list.php?id=<?php echo $listID ?>">
             <input type="text" name="newItem" id="newItem" placeholder="New Item">
             <button type="submit">Add Item</button>
           </form>

@@ -1,6 +1,7 @@
 <!doctype html>
 <?php
-  $unique = substr(md5(microtime()), 0, -25);
+  #$unique = substr(md5(microtime()), 0, -25);
+  $unique = "67FJ9SL";
 ?>
 
 <html lang="en">

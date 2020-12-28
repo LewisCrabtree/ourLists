@@ -1,26 +1,31 @@
 <?php
   include 'db_connection.php';
   #$conn = OpenCon();
-  //Do some database stuff
-  #CloseCon($conn);
+
+  //Get the id of the list to serve
   $listID = $_GET['id'];
 
+  //query the db 
   $listName = "Movie List";
   $listData = ['one', 'two', 'three'];
 
+  //insert new item to the database 
   if('POST' === $_SERVER['REQUEST_METHOD']){
     if (!empty($_POST["newItem"])){
       $newItem = $_POST["newItem"];
       //item sent in post.  add it to list
+
       array_push($listData, $newItem);
     }
-
-    //insert the item to DB
-    
   }
 
+  //insert new name to the database
 
-  
+  //select name from the database
+
+  //select items from the database
+
+  #CloseCon($conn);
 ?>
 <!doctype html>
 <html lang="en">

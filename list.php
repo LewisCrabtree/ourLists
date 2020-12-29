@@ -1,6 +1,6 @@
 <?php
-  include 'db_connection.php';
-  #$conn = OpenCon();
+  include 'db-connection.php';
+  $conn = OpenCon();
 
   //Get the id of the list to serve
   $listID = $_GET['id'];
@@ -13,9 +13,17 @@
   if('POST' === $_SERVER['REQUEST_METHOD']){
     if (!empty($_POST["newItem"])){
       $newItem = $_POST["newItem"];
+      $newItemID = substr(md5(microtime()), 0, -25);
       //item sent in post.  add it to list
+      $sql = "INSERT INTO tblItems (ItemID, ItemName, ListID) VALUES ('" . $newItemID . "', '" . $newItem . "', '" . $listID ."')";
 
+      if($conn->query($sql) === TRUE) {
+        #success
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
       array_push($listData, $newItem);
+
     }
   }
 
@@ -25,7 +33,7 @@
 
   //select items from the database
 
-  #CloseCon($conn);
+  CloseCon($conn);
 ?>
 <!doctype html>
 <html lang="en">

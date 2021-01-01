@@ -20,8 +20,6 @@
       } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
       }
-      array_push($listData, $newItem);
-
     }
   }
 

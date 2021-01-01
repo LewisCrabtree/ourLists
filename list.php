@@ -1,20 +1,38 @@
 <?php
-  include 'db_connection.php';
-
-  //Get the list id from the URL
-  $listID = $_GET['id'];
-
-  //connect to DB
+  include 'db-connection.php';
   $conn = OpenCon();
   //Do some database stuff
-
-  //close db connection
-  CloseCon($conn);
-
-  //Temp data until feature to get data from db is complete
-  $listName = "temp list name";
-  $listData = ['one', 'two', 'three'];
+  $listID = $_GET['id'];
+  $listName = "New List";
+  $listData = [];
   
+  //select list name from database.  Create the list if it doesn't exist
+  $sql = "SELECT ListName FROM tblLists WHERE ListID ='" . $listID . "'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    //Get the listName from the result
+    while($row = $result->fetch_assoc()) {
+      $listName = $row['ListName'];
+    }
+  } else {
+    //no results.  Create the List
+
+  }
+
+  //select list items from database.
+  $sql = "SELECT ListID, ItemName FROM tblItems WHERE ListID ='" . $listID . "'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    //Get the listName from the result
+    while($row = $result->fetch_assoc()) {
+      array_push($listData, $row['ItemName']);
+    }
+  } else {
+    //no results.  Create the List
+
+  }
+
+  CloseCon($conn);
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,7 +47,28 @@
     <title>Share a List</title>
   </head>
   <body>
-    
+
+    <!-- List Name -->
+    <h1> <?php echo $listName; ?> </h1>
+
+    <!-- list items area -->
+    <div>
+      <ul>
+      <!-- Items from server will go here  -->
+      <div id="ItemList">
+
+      </div>
+      <!-- insert item area -->
+      <div id="InsertArea">
+        <li>
+          <form id="formAddItem" name="formAddItem" method="post" action="/list.php?id=<?php echo $listID ?>">
+            <input type="text" name="newItem" id="newItem" placeholder="New Item">
+            <button type="submit">Add Item</button>
+          </form>
+        </li>
+      </div>
+      </ul>
+    </div>
   </body>
 </html>
 
@@ -40,28 +79,14 @@
         The JS below will just display whatever the listName and listData values are.
         So we can use php with GET to grab the list_id value from the URL,  and then retrieve the name and data associated with that list_id.
       */
-
-      // Establish the Name of the list.  Convert php listName to JSON object and send to the browser
-      let listName = <?php echo json_encode($listName); ?>,
-      // Establish the list data.  Convert php listData to JSON object and send to the browser
-      listData = <?php echo json_encode($listData); ?>,
-      // Make a container element for the list
-      listContainer = document.createElement('div'),
-      // Make the header
-      headerElement = document.createElement('h1'),
-      // Make the list
-      listElement = document.createElement('ul'),
-      // Set up a loop that goes through the items in listItems one at a time
+      // Establish the array which acts as a data source for the list
+      let listData = <?php echo json_encode($listData); ?>,
       numberOfListItems = listData.length,
       listItem,
       i;
 
-      // Add header to the page
-      document.getElementsByTagName('body')[0].appendChild(headerElement);
-      headerElement.innerHTML = listName;
       // Add list to the page
-      document.getElementsByTagName('body')[0].appendChild(listContainer);
-      listContainer.appendChild(listElement);
+      let listContainer = document.getElementById("ItemList");
 
       for (i = 0; i < numberOfListItems; ++i) {
           // create an item for each one
@@ -71,10 +96,16 @@
           listItem.innerHTML = listData[i];
 
           // Add listItem to the listElement
-          listElement.appendChild(listItem);
+          listContainer.appendChild(listItem);
       }
+
+      //Add insert item area
+      let insertArea = document.getElementById("InsertArea");
+
+
   }
-  
+
   // Usage
   makeList();
+
 </script>

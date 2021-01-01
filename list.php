@@ -1,11 +1,30 @@
 <?php
   include 'db-connection.php';
   $conn = OpenCon();
+
   //Do some database stuff
   $listID = $_GET['id'];
   $listName = "New List";
   $listData = [];
   
+  //insert new item to the database 
+  if('POST' === $_SERVER['REQUEST_METHOD']){
+    if (!empty($_POST["newItem"])){
+      $newItem = $_POST["newItem"];
+      $newItemID = substr(md5(microtime()), 0, -25);
+      //item sent in post.  add it to list
+      $sql = "INSERT INTO tblItems (ItemID, ItemName, ListID) VALUES ('" . $newItemID . "', '" . $newItem . "', '" . $listID ."')";
+
+      if($conn->query($sql) === TRUE) {
+        #success
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+      array_push($listData, $newItem);
+
+    }
+  }
+
   //select list name from database.  Create the list if it doesn't exist
   $sql = "SELECT ListName FROM tblLists WHERE ListID ='" . $listID . "'";
   $result = $conn->query($sql);
